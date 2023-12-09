@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>가위 바위 보 게임</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .choice-button {
+            transition: transform 0.1s ease;
+        }
+        .choice-button:hover {
+            transform: scale(1.1);
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex flex-col items-center justify-center min-h-screen">
+    <div class="text-center">
+        <h1 class="text-4xl font-bold mb-8">가위 바위 보</h1>
+        <div id="choices" class="flex justify-center gap-4 mb-8">
+            <button class="choice-button bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full" onclick="play('rock')">&#128074; 바위</button>
+            <button class="choice-button bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full" onclick="play('paper')">&#128400; 보</button>
+            <button class="choice-button bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full" onclick="play('scissors')">&#9996; 가위</button>
+        </div>
+        <div id="result" class="text-2xl font-semibold mb-4"></div>
+    </div>
+
+    <script>
+        function play(userChoice) {
+            const choices = ['rock', 'paper', 'scissors'];
+            const emojis = {
+                'rock': '&#128074;',
+                'paper': '&#128400;',
+                'scissors': '&#9996;'
+            };
+            const choiceNames = {
+                'rock': '바위',
+                'paper': '보',
+                'scissors': '가위'
+            };
+            const computerChoice = choices[Math.floor(Math.random() * choices.length)];
+            const resultText = determineWinner(userChoice, computerChoice);
+            document.getElementById('result').innerHTML = `당신은 ${emojis[userChoice]} ${choiceNames[userChoice]}를 선택했습니다. 컴퓨터는 ${emojis[computerChoice]} ${choiceNames[computerChoice]}를 선택했습니다. ${resultText}`;
+        }
+
+        function determineWinner(userChoice, computerChoice) {
+            if (userChoice === computerChoice) {
+                return `비겼습니다!`;
+            }
+            if ((userChoice === 'rock' && computerChoice === 'scissors') ||
+                (userChoice === 'scissors' && computerChoice === 'paper') ||
+                (userChoice === 'paper' && computerChoice === 'rock')) {
+                return `이겼습니다!`;
+            } else {
+                return `졌습니다!`;
+            }
+        }
+    </script>
+</body>
+</html>
